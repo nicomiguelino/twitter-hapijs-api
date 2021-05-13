@@ -1,0 +1,16 @@
+{
+  "name": "yatc-api",
+  "version": "1.0.0",
+  "description": "The RESTful API for the YATC (Yet another Twitter clone) front-end.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./index.js"
+  },
+  "author": "Nico Miguelino",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^20.1.3",
+    "nodemon": "^2.0.7"
+  }
+}
