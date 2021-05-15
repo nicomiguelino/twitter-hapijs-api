@@ -1,36 +1,31 @@
-const tweets = [
-  {
-    userName: 'anthonyedwardstark',
-    displayName: 'Tony Stark',
-    timeElapsed: '4h',
-    content: 'Time to upgrade my Mark V.',
-  },
-  {
-    userName: 'peterparker',
-    displayName: 'Peter Parker',
-    timeElapsed: '23s',
-    content: 'I\'m super excited on my first day at the Stark internship.',
-  },
-  {
-    userName: 'brucebanner',
-    displayName: 'Hulk',
-    timeElapsed: '4h',
-    content: 'Gotta go to dinner date with Nat.',
-  },
-  {
-    userName: 'samwilson',
-    displayName: 'The Falcon',
-    timeElapsed: '1d',
-    content: 'Gotta go fast to get that shield back.',
-  },
-]
+const Joi = require('joi');
+const { Tweet } = require('../models/tweets');
 
 module.exports = [
   {
     method: 'GET',
     path: '/tweets',
-    handler: (request, h) => {
+    handler: async (request, h) => {
+      const tweets = await Tweet.find({});
       return h.response(tweets).code(200);
+    }
+  },
+  {
+    method: 'POST',
+    path: '/tweets',
+    handler: async (request, h) => {
+      const tweet = await Tweet.create(request.payload);
+      return h.response(tweet);
+    },
+    options: {
+      validate: {
+        payload: Joi.object({
+          userName: Joi.string().required(),
+          displayName: Joi.string().required(),
+          timeElapsed: Joi.string().required(),
+          content: Joi.string().required()
+        })
+      }
     }
   }
 ];

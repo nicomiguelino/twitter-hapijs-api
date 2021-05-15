@@ -1,6 +1,7 @@
 'use strict';
 
 const Hapi = require('@hapi/hapi');
+const mongoose = require('mongoose');
 const routes = require('./routes');
 
 const init = async() => {
@@ -11,6 +12,11 @@ const init = async() => {
       stripTrailingSlash: true
     },
     routes: {
+      validate: {
+        failAction: async (request, h, err) => {
+          throw err;
+        }
+      },
       cors: {
         origin: ['*']
       }
@@ -19,6 +25,12 @@ const init = async() => {
 
   server.route(routes);
 
+  await mongoose.connect('mongodb://localhost:27017/yatc', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+  });
   await server.start();
 
   console.log(`Server running on ${server.info.uri}`);
