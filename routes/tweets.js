@@ -1,3 +1,5 @@
+const _ = require('lodash');
+const Boom = require('@hapi/boom');
 const Joi = require('joi');
 const { Tweet } = require('../models/tweets');
 
@@ -26,6 +28,21 @@ module.exports = [
           content: Joi.string().required()
         })
       }
+    }
+  },
+  {
+    method: 'GET',
+    path: '/tweets/{id}',
+    handler: async (request, h) => {
+      const { id } = request.params;
+      const tweet = await Tweet.findById(id).exec();
+
+      if (tweet) {
+        return _.pick(
+          tweet, ['id', 'userName', 'displayName', 'timeElapsed', 'content']);
+      }
+
+      return Boom.notFound('No tweets found');
     }
   }
 ];
