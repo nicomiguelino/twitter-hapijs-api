@@ -10,7 +10,11 @@
   "author": "Nico Miguelino",
   "license": "ISC",
   "dependencies": {
+    "@hapi/boom": "^9.1.2",
     "@hapi/hapi": "^20.1.3",
+    "joi": "^17.4.0",
+    "lodash": "^4.17.21",
+    "mongoose": "^5.12.9",
     "nodemon": "^2.0.7"
   }
 }
