@@ -42,7 +42,21 @@ module.exports = [
           tweet, ['id', 'userName', 'displayName', 'timeElapsed', 'content']);
       }
 
-      return Boom.notFound('No tweets found');
+      return Boom.notFound('No tweet found');
+    }
+  },
+  {
+    method: 'DELETE',
+    path: '/tweets/{id}',
+    handler: async (request, h) => {
+      const { id } = request.params;
+      const tweet = await Tweet.findByIdAndRemove(id);
+
+      if (tweet) {
+        return h.response().code(204);
+      }
+
+      return Boom.notFound('Cannot delete a non-existing tweet');
     }
   }
 ];
