@@ -1,24 +1,18 @@
-const _ = require('lodash');
-const Boom = require('@hapi/boom');
 const Joi = require('joi');
-const { Tweet } = require('../models/tweets');
+const {
+  getTweets, createTweet, getTweetById, deleteTweet
+} = require('../controllers/tweets');
 
 module.exports = [
   {
     method: 'GET',
     path: '/tweets',
-    handler: async (request, h) => {
-      const tweets = await Tweet.find({});
-      return h.response(tweets).code(200);
-    }
+    handler: getTweets
   },
   {
     method: 'POST',
     path: '/tweets',
-    handler: async (request, h) => {
-      const tweet = await Tweet.create(request.payload);
-      return h.response(tweet);
-    },
+    handler: createTweet,
     options: {
       validate: {
         payload: Joi.object({
@@ -33,30 +27,11 @@ module.exports = [
   {
     method: 'GET',
     path: '/tweets/{id}',
-    handler: async (request, h) => {
-      const { id } = request.params;
-      const tweet = await Tweet.findById(id).exec();
-
-      if (tweet) {
-        return _.pick(
-          tweet, ['id', 'userName', 'displayName', 'timeElapsed', 'content']);
-      }
-
-      return Boom.notFound('No tweet found');
-    }
+    handler: getTweetById
   },
   {
     method: 'DELETE',
     path: '/tweets/{id}',
-    handler: async (request, h) => {
-      const { id } = request.params;
-      const tweet = await Tweet.findByIdAndRemove(id);
-
-      if (tweet) {
-        return h.response().code(204);
-      }
-
-      return Boom.notFound('Cannot delete a non-existing tweet');
-    }
+    handler: deleteTweet
   }
 ];
