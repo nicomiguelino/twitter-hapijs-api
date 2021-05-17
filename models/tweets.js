@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const TweetSchema = new Schema({
-  userName: String,
+  username: String,
   displayName: String,
   timeElapsed: String,
   content: String

@@ -16,7 +16,7 @@ module.exports = [
     options: {
       validate: {
         payload: Joi.object({
-          userName: Joi.string().required(),
+          username: Joi.string().required(),
           displayName: Joi.string().required(),
           timeElapsed: Joi.string().required(),
           content: Joi.string().required()

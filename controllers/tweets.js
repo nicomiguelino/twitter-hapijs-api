@@ -18,7 +18,7 @@ async function getTweetById(request, h) {
 
   if (tweet) {
     return _.pick(
-      tweet, ['id', 'userName', 'displayName', 'timeElapsed', 'content']);
+      tweet, ['id', 'username', 'displayName', 'timeElapsed', 'content']);
   }
 
   return Boom.notFound('No tweet found');
