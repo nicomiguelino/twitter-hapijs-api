@@ -1,7 +1,9 @@
-const bcrypt = require('bcrypt');
+const _ = require('lodash');
+const Bcrypt = require('bcrypt');
 const Boom = require('@hapi/boom');
 
 const { User } = require('../models/users');
+const { generateToken } = require('../utilities/auth');
 
 async function login(request, h) {
   const { username, password } = request.payload;
@@ -11,21 +13,21 @@ async function login(request, h) {
     return Boom.badRequest('Username does not exist');
   }
 
-  if (!await bcrypt.compare(password, user.password)) {
+  if (!await Bcrypt.compare(password, user.password)) {
     return Boom.unauthorized('Login failed');
   }
 
-  return h.response({
-    message: 'Login successful'
-  });
+  const token = generateToken(user);
+
+  return h.response({ token });
 }
 
 async function signup(request, h) {
   const { username, password } = request.payload;
 
   try {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const salt = await Bcrypt.genSalt(10);
+    const hashedPassword = await Bcrypt.hash(password, salt);
     await User.create({ username, password: hashedPassword });
   } catch(error) {
     return Boom.badRequest(error);

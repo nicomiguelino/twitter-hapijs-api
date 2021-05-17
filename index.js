@@ -27,7 +27,7 @@ const init = async() => {
   await server.register(Jwt);
 
   server.auth.strategy('jwt', 'jwt', {
-    keys: 'some_shared_secret', // TODO: Use a stronger secret.
+    keys: 'some_shared_secret',
     verify: {
       aud: 'urn:audience:test',
       iss: 'urn:issuer:test',
