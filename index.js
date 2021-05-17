@@ -1,6 +1,7 @@
 'use strict';
 
 const Hapi = require('@hapi/hapi');
+const Jwt = require('@hapi/jwt');
 const mongoose = require('mongoose');
 const routes = require('./routes');
 
@@ -22,6 +23,29 @@ const init = async() => {
       }
     }
   });
+
+  await server.register(Jwt);
+
+  server.auth.strategy('jwt', 'jwt', {
+    keys: 'some_shared_secret', // TODO: Use a stronger secret.
+    verify: {
+      aud: 'urn:audience:test',
+      iss: 'urn:issuer:test',
+      sub: false,
+      nbf: true,
+      exp: true,
+      maxAgeSec: 14400,
+      timeSkewSec: 15
+    },
+    validate: (artifacts, request, h) => {
+      return {
+        isValid: true,
+        credentials: { user: artifacts.decoded.payload.user }
+      };
+    }
+  });
+
+  server.auth.default('jwt');
 
   server.route(routes);
 
