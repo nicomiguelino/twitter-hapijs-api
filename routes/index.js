@@ -1,6 +1,9 @@
-module.exports = [
-  ...require('./auth'),
-  ...require('./tweets'),
+import authRoutes from './auth';
+import tweetsRoutes from './tweets';
+
+const routes = [
+  ...authRoutes,
+  ...tweetsRoutes,
   {
     method: 'GET',
     path: '/',
@@ -13,3 +16,5 @@ module.exports = [
     }
   },
 ];
+
+export default routes;

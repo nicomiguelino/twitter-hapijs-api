@@ -1,9 +1,9 @@
 'use strict';
 
-const Hapi = require('@hapi/hapi');
-const Jwt = require('@hapi/jwt');
-const mongoose = require('mongoose');
-const routes = require('./routes');
+import Hapi from '@hapi/hapi';
+import Jwt from '@hapi/jwt';
+import mongoose from 'mongoose';
+import routes from './routes';
 
 const init = async() => {
   const server = Hapi.server({

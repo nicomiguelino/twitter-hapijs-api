@@ -1,11 +1,11 @@
-const _ = require('lodash');
-const Bcrypt = require('bcrypt');
-const Boom = require('@hapi/boom');
+import _ from 'lodash';
+import Bcrypt from 'bcrypt';
+import Boom from '@hapi/boom';
 
-const { User } = require('../models/users');
-const { generateToken } = require('../utilities/auth');
+import { User } from '../models/users';
+import { generateToken } from '../utilities/auth';
 
-async function login(request, h) {
+export async function login(request, h) {
   const { username, password } = request.payload;
   const user = await User.findOne({ username });
 
@@ -22,7 +22,7 @@ async function login(request, h) {
   return h.response({ token });
 }
 
-async function signup(request, h) {
+export async function signup(request, h) {
   const { username, password } = request.payload;
 
   try {
@@ -37,7 +37,3 @@ async function signup(request, h) {
     message: 'Sign-up was successful.'
   });
 }
-
-module.exports = {
-  login, signup
-};

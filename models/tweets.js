@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+import { Schema, model } from 'mongoose';
 
 const TweetSchema = new Schema({
   username: String,
@@ -7,7 +7,4 @@ const TweetSchema = new Schema({
   content: String
 });
 
-const Tweet = model('Tweet', TweetSchema);
-
-module.exports = { Tweet };
-
+export const Tweet = model('Tweet', TweetSchema);

@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+import { Schema, model } from 'mongoose';
 
 const UserSchema = new Schema({
   username: {
@@ -8,6 +8,4 @@ const UserSchema = new Schema({
   password: String
 });
 
-const User = model('User', UserSchema);
-
-module.exports = { User };
+export const User = model('User', UserSchema);

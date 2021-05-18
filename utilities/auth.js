@@ -1,6 +1,6 @@
-const Jwt = require('@hapi/jwt');
+import Jwt from '@hapi/jwt';
 
-function generateToken(user) {
+export function generateToken(user) {
   const payload = {
     aud: 'urn:audience:test',
     iss: 'urn:issuer:test',
@@ -21,5 +21,3 @@ function generateToken(user) {
 
   return token;
 }
-
-module.exports = { generateToken };

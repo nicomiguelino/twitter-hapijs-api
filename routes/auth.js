@@ -1,10 +1,10 @@
-const { login, signup } = require('../controllers/auth');
+import { login, signup } from '../controllers/auth';
 
 const options = {
   auth: false
 };
 
-module.exports = [
+const routes = [
   {
     method: 'POST',
     path: '/login',
@@ -18,3 +18,5 @@ module.exports = [
     options
   }
 ];
+
+export default routes;

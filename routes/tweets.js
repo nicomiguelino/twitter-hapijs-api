@@ -1,9 +1,9 @@
-const Joi = require('joi');
-const {
+import Joi from 'joi';
+import {
   getTweets, createTweet, getTweetById, deleteTweet
-} = require('../controllers/tweets');
+} from '../controllers/tweets';
 
-module.exports = [
+const routes = [
   {
     method: 'GET',
     path: '/tweets',
@@ -35,3 +35,5 @@ module.exports = [
     handler: deleteTweet
   }
 ];
+
+export default routes;
