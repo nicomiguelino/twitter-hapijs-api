@@ -1,11 +1,11 @@
-import { Schema, model } from 'mongoose';
+import {Schema, model} from 'mongoose';
 
 const UserSchema = new Schema({
   username: {
     type: String,
-    unique: true
+    unique: true,
   },
-  password: String
+  password: String,
 });
 
 export const User = model('User', UserSchema);

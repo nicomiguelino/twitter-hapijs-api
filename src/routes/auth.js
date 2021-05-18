@@ -1,7 +1,7 @@
-import { login, signup } from '../controllers/auth';
+import {login, signup} from '../controllers/auth';
 
 const options = {
-  auth: false
+  auth: false,
 };
 
 const routes = [
@@ -9,14 +9,14 @@ const routes = [
     method: 'POST',
     path: '/login',
     handler: login,
-    options
+    options,
   },
   {
     method: 'POST',
     path: '/signup',
     handler: signup,
-    options
-  }
+    options,
+  },
 ];
 
 export default routes;

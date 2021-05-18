@@ -1,13 +1,13 @@
 import Joi from 'joi';
 import {
-  getTweets, createTweet, getTweetById, deleteTweet
+  getTweets, createTweet, getTweetById, deleteTweet,
 } from '../controllers/tweets';
 
 const routes = [
   {
     method: 'GET',
     path: '/tweets',
-    handler: getTweets
+    handler: getTweets,
   },
   {
     method: 'POST',
@@ -19,21 +19,21 @@ const routes = [
           username: Joi.string().required(),
           displayName: Joi.string().required(),
           timeElapsed: Joi.string().required(),
-          content: Joi.string().required()
-        })
-      }
-    }
+          content: Joi.string().required(),
+        }),
+      },
+    },
   },
   {
     method: 'GET',
     path: '/tweets/{id}',
-    handler: getTweetById
+    handler: getTweetById,
   },
   {
     method: 'DELETE',
     path: '/tweets/{id}',
-    handler: deleteTweet
-  }
+    handler: deleteTweet,
+  },
 ];
 
 export default routes;

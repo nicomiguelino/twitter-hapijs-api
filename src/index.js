@@ -5,23 +5,23 @@ import Jwt from '@hapi/jwt';
 import mongoose from 'mongoose';
 import routes from './routes';
 
-const init = async() => {
+const init = async () => {
   const server = Hapi.server({
     port: 4000,
     host: 'localhost',
     router: {
-      stripTrailingSlash: true
+      stripTrailingSlash: true,
     },
     routes: {
       validate: {
         failAction: async (request, h, err) => {
           throw err;
-        }
+        },
       },
       cors: {
-        origin: ['*']
-      }
-    }
+        origin: ['*'],
+      },
+    },
   });
 
   await server.register(Jwt);
@@ -35,14 +35,14 @@ const init = async() => {
       nbf: true,
       exp: true,
       maxAgeSec: 14400,
-      timeSkewSec: 15
+      timeSkewSec: 15,
     },
     validate: (artifacts, request, h) => {
       return {
         isValid: true,
-        credentials: { user: artifacts.decoded.payload.user }
+        credentials: {user: artifacts.decoded.payload.user},
       };
-    }
+    },
   });
 
   server.auth.default('jwt');
@@ -53,7 +53,7 @@ const init = async() => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
-    useCreateIndex: true
+    useCreateIndex: true,
   });
   await server.start();
 

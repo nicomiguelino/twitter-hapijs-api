@@ -1,13 +1,12 @@
-import _ from 'lodash';
 import Bcrypt from 'bcrypt';
 import Boom from '@hapi/boom';
 
-import { User } from '../models/users';
-import { generateToken } from '../utilities/auth';
+import {User} from '../models/users';
+import {generateToken} from '../utilities/auth';
 
 export async function login(request, h) {
-  const { username, password } = request.payload;
-  const user = await User.findOne({ username });
+  const {username, password} = request.payload;
+  const user = await User.findOne({username});
 
   if (!user) {
     return Boom.badRequest('Username does not exist');
@@ -19,21 +18,21 @@ export async function login(request, h) {
 
   const token = generateToken(user);
 
-  return h.response({ token });
+  return h.response({token});
 }
 
 export async function signup(request, h) {
-  const { username, password } = request.payload;
+  const {username, password} = request.payload;
 
   try {
     const salt = await Bcrypt.genSalt(10);
     const hashedPassword = await Bcrypt.hash(password, salt);
-    await User.create({ username, password: hashedPassword });
-  } catch(error) {
+    await User.create({username, password: hashedPassword});
+  } catch (error) {
     return Boom.badRequest(error);
   }
 
   return h.response({
-    message: 'Sign-up was successful.'
+    message: 'Sign-up was successful.',
   });
 }

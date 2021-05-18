@@ -13,7 +13,7 @@ const routes = [
       };
 
       return h.response(data).code(200);
-    }
+    },
   },
 ];
 

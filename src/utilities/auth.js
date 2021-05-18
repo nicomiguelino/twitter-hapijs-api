@@ -5,19 +5,19 @@ export function generateToken(user) {
     aud: 'urn:audience:test',
     iss: 'urn:issuer:test',
     username: user.username,
-    userId: user.id
-  }
+    userId: user.id,
+  };
 
   const token = Jwt.token.generate(
-    payload,
-    {
-      key: 'some_shared_secret',
-      algorithm: 'HS512'
-    },
-    {
-      ttlSec: 14400
-    }
-  )
+      payload,
+      {
+        key: 'some_shared_secret',
+        algorithm: 'HS512',
+      },
+      {
+        ttlSec: 14400,
+      },
+  );
 
   return token;
 }

@@ -9,7 +9,8 @@
     "start": "yarn build && node ./dist/index.js",
     "build": "yarn clean && yarn build-babel",
     "clean": "rimraf build && mkdir build",
-    "build-babel": "babel -d ./dist ./src/ --compact --minified -s"
+    "build-babel": "babel -d ./dist ./src/ --compact --minified -s",
+    "lint": "eslint 'src/**/*.js?(x)'"
   },
   "author": "Nico Miguelino",
   "license": "ISC",
@@ -31,6 +32,8 @@
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.14.2",
     "@babel/runtime": "^7.14.0",
+    "eslint": "^7.26.0",
+    "eslint-config-google": "^0.14.0",
     "nodemon": "^2.0.7"
   }
 }

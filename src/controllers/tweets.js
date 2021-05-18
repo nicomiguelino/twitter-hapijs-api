@@ -1,6 +1,6 @@
-import _ from  'lodash';
-import Boom from  '@hapi/boom';
-import { Tweet } from  '../models/tweets';
+import _ from 'lodash';
+import Boom from '@hapi/boom';
+import {Tweet} from '../models/tweets';
 
 export async function getTweets(request, h) {
   const tweets = await Tweet.find({});
@@ -13,19 +13,19 @@ export async function createTweet(request, h) {
 }
 
 export async function getTweetById(request, h) {
-  const { id } = request.params;
+  const {id} = request.params;
   const tweet = await Tweet.findById(id).exec();
 
   if (tweet) {
     return _.pick(
-      tweet, ['id', 'username', 'displayName', 'timeElapsed', 'content']);
+        tweet, ['id', 'username', 'displayName', 'timeElapsed', 'content']);
   }
 
   return Boom.notFound('No tweet found');
 }
 
 export async function deleteTweet(request, h) {
-  const { id } = request.params;
+  const {id} = request.params;
   const tweet = await Tweet.findByIdAndRemove(id);
 
   if (tweet) {
