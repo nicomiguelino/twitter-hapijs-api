@@ -16,8 +16,6 @@ const routes = [
     options: {
       validate: {
         payload: Joi.object({
-          username: Joi.string().required(),
-          displayName: Joi.string().required(),
           timeElapsed: Joi.string().required(),
           content: Joi.string().required(),
         }),

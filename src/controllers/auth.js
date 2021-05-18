@@ -22,12 +22,16 @@ export async function login(request, h) {
 }
 
 export async function signup(request, h) {
-  const {username, password} = request.payload;
+  const {username, password, displayName} = request.payload;
 
   try {
     const salt = await Bcrypt.genSalt(10);
     const hashedPassword = await Bcrypt.hash(password, salt);
-    await User.create({username, password: hashedPassword});
+    await User.create({
+      username,
+      password: hashedPassword,
+      displayName,
+    });
   } catch (error) {
     return Boom.badRequest(error);
   }

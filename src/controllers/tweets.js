@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import Boom from '@hapi/boom';
 import {Tweet} from '../models/tweets';
+import {User} from '../models/users';
 
 export async function getTweets(request, h) {
   const tweets = await Tweet.find({});
@@ -8,7 +9,17 @@ export async function getTweets(request, h) {
 }
 
 export async function createTweet(request, h) {
-  const tweet = await Tweet.create(request.payload);
+  const {username} = request.auth.credentials;
+  const {timeElapsed, content} = request.payload;
+  const {displayName} = await User.findOne({username});
+
+  const tweet = await Tweet.create({
+    username,
+    displayName,
+    timeElapsed,
+    content,
+  });
+
   return h.response(tweet);
 }
 

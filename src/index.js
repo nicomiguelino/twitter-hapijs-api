@@ -40,7 +40,7 @@ const init = async () => {
     validate: (artifacts, request, h) => {
       return {
         isValid: true,
-        credentials: {user: artifacts.decoded.payload.user},
+        credentials: {username: artifacts.decoded.payload.username},
       };
     },
   });
