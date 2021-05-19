@@ -1,5 +1,9 @@
-module.exports = [
-  ...require('./tweets'),
+import authRoutes from './auth';
+import tweetsRoutes from './tweets';
+
+const routes = [
+  ...authRoutes,
+  ...tweetsRoutes,
   {
     method: 'GET',
     path: '/',
@@ -9,6 +13,8 @@ module.exports = [
       };
 
       return h.response(data).code(200);
-    }
+    },
   },
 ];
+
+export default routes;
