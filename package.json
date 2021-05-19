@@ -8,7 +8,7 @@
     "start:dev": "nodemon --exec babel-node ./src/index.js",
     "start": "yarn build && node ./dist/index.js",
     "build": "yarn clean && yarn build-babel",
-    "clean": "rimraf build && mkdir build",
+    "clean": "rimraf dist && mkdir dist",
     "build-babel": "babel -d ./dist ./src/ --compact --minified -s",
     "lint": "eslint 'src/**/*.js?(x)'"
   },
