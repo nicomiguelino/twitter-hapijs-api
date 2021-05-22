@@ -9,11 +9,11 @@ export const login = async (request, h) => {
   const user = await User.findOne({username});
 
   if (!user) {
-    return Boom.badRequest('Username does not exist');
+    return Boom.badRequest('Username does not exist.');
   }
 
   if (!await Bcrypt.compare(password, user.password)) {
-    return Boom.unauthorized('Login failed');
+    return Boom.unauthorized('Password is incorrect.');
   }
 
   const token = generateToken(user);
