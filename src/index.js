@@ -20,32 +20,21 @@ const init = async () => {
       },
       cors: {
         origin: ['*'],
+        credentials: true,
       },
     },
   });
 
   await server.register(Jwt);
 
-  server.auth.strategy('jwt', 'jwt', {
-    keys: 'some_shared_secret',
-    verify: {
-      aud: 'urn:audience:test',
-      iss: 'urn:issuer:test',
-      sub: false,
-      nbf: true,
-      exp: true,
-      maxAgeSec: 14400,
-      timeSkewSec: 15,
-    },
-    validate: (artifacts, request, h) => {
-      return {
-        isValid: true,
-        credentials: {username: artifacts.decoded.payload.username},
-      };
-    },
+  server.state('accessToken', {
+    ttl: null,
+    isSecure: false,
+    isHttpOnly: true,
+    encoding: 'base64json',
+    clearInvalid: true,
+    strictHeader: true,
   });
-
-  server.auth.default('jwt');
 
   server.route(routes);
 

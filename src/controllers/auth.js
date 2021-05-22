@@ -4,7 +4,7 @@ import Boom from '@hapi/boom';
 import {User} from '../models/users';
 import {generateToken} from '../utilities/auth';
 
-export async function login(request, h) {
+export const login = async (request, h) => {
   const {username, password} = request.payload;
   const user = await User.findOne({username});
 
@@ -18,10 +18,20 @@ export async function login(request, h) {
 
   const token = generateToken(user);
 
+  h.state('accessToken', token);
   return h.response({token});
-}
+};
 
-export async function signup(request, h) {
+export const logout = async (request, h) => {
+  try {
+    h.unstate('accessToken');
+    return h.response().code(200);
+  } catch (error) {
+    return Boom.badRequest('Logout failed');
+  }
+};
+
+export const signup = async (request, h) => {
   const {username, password, displayName} = request.payload;
 
   try {
@@ -39,4 +49,11 @@ export async function signup(request, h) {
   return h.response({
     message: 'Sign-up was successful.',
   });
-}
+};
+
+export const isLoggedIn = async (request, h) => {
+  const {username} = request.pre.credentials;
+  const response = {username};
+
+  return h.response(response).code(200);
+};
