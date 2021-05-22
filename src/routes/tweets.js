@@ -1,8 +1,8 @@
 import Joi from 'joi';
 import {
   getTweets, createTweet, getTweetById, deleteTweet,
-} from '../controllers/tweets';
-import {jwtPreHandler} from '../utilities/auth';
+} from '~/controllers/tweets';
+import {jwtPreHandler} from '~/utilities/auth';
 
 const options = {
   pre: [

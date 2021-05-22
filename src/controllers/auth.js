@@ -1,8 +1,8 @@
 import Bcrypt from 'bcrypt';
 import Boom from '@hapi/boom';
 
-import {User} from '../models/users';
-import {generateToken} from '../utilities/auth';
+import {User} from '~/models/users';
+import {generateToken} from '~/utilities/auth';
 
 export const login = async (request, h) => {
   const {username, password} = request.payload;

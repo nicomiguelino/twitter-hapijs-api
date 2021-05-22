@@ -1,5 +1,5 @@
-import authRoutes from './auth';
-import tweetsRoutes from './tweets';
+import authRoutes from '~/routes/auth';
+import tweetsRoutes from '~/routes/tweets';
 
 const routes = [
   ...authRoutes,

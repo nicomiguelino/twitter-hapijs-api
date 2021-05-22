@@ -3,7 +3,7 @@
 import Hapi from '@hapi/hapi';
 import Jwt from '@hapi/jwt';
 import mongoose from 'mongoose';
-import routes from './routes';
+import routes from '~/routes';
 
 const init = async () => {
   const server = Hapi.server({

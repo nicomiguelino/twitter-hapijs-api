@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Boom from '@hapi/boom';
-import {Tweet} from '../models/tweets';
-import {User} from '../models/users';
+import {Tweet} from '~/models/tweets';
+import {User} from '~/models/users';
 
 export const getTweets = async (request, h) => {
   const tweets = await Tweet.find({});

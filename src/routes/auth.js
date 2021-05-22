@@ -1,5 +1,5 @@
-import {login, logout, signup, isLoggedIn} from '../controllers/auth';
-import {jwtPreHandler} from '../utilities/auth';
+import {login, logout, signup, isLoggedIn} from '~/controllers/auth';
+import {jwtPreHandler} from '~/utilities/auth';
 
 const options = {
   pre: [
