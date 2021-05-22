@@ -3,13 +3,13 @@ import Boom from '@hapi/boom';
 import {Tweet} from '../models/tweets';
 import {User} from '../models/users';
 
-export async function getTweets(request, h) {
+export const getTweets = async (request, h) => {
   const tweets = await Tweet.find({});
   return h.response(tweets).code(200);
-}
+};
 
-export async function createTweet(request, h) {
-  const {username} = request.auth.credentials;
+export const createTweet = async (request, h) => {
+  const {username} = request.pre.credentials;
   const {timeElapsed, content} = request.payload;
   const {displayName} = await User.findOne({username});
 
@@ -21,9 +21,9 @@ export async function createTweet(request, h) {
   });
 
   return h.response(tweet);
-}
+};
 
-export async function getTweetById(request, h) {
+export const getTweetById = async (request, h) => {
   const {id} = request.params;
   const tweet = await Tweet.findById(id).exec();
 
@@ -33,9 +33,9 @@ export async function getTweetById(request, h) {
   }
 
   return Boom.notFound('No tweet found');
-}
+};
 
-export async function deleteTweet(request, h) {
+export const deleteTweet = async (request, h) => {
   const {id} = request.params;
   const tweet = await Tweet.findByIdAndRemove(id);
 
@@ -44,4 +44,4 @@ export async function deleteTweet(request, h) {
   }
 
   return Boom.notFound('Cannot delete a non-existing tweet');
-}
+};
