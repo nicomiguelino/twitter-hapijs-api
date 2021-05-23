@@ -5,7 +5,11 @@ import {User} from '~/models/users';
 
 export const getTweets = async (request, h) => {
   const tweets = await Tweet.find({});
-  return h.response(tweets).code(200);
+
+  const response = tweets.map(tweet =>
+    _.pick(tweet, ['id', 'username', 'displayName', 'timeElapsed', 'content']))
+
+  return h.response(response).code(200);
 };
 
 export const createTweet = async (request, h) => {
