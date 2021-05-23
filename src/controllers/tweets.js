@@ -3,11 +3,13 @@ import Boom from '@hapi/boom';
 import {Tweet} from '~/models/tweets';
 import {User} from '~/models/users';
 
+const commonTweetFields = [
+  'id', 'username', 'displayName', 'timeElapsed', 'content'];
+
 export const getTweets = async (request, h) => {
   const tweets = await Tweet.find({});
 
-  const response = tweets.map(tweet =>
-    _.pick(tweet, ['id', 'username', 'displayName', 'timeElapsed', 'content']))
+  const response = tweets.map((tweet) => _.pick(tweet, commonTweetFields));
 
   return h.response(response).code(200);
 };
@@ -32,8 +34,7 @@ export const getTweetById = async (request, h) => {
   const tweet = await Tweet.findById(id).exec();
 
   if (tweet) {
-    return _.pick(
-        tweet, ['id', 'username', 'displayName', 'timeElapsed', 'content']);
+    return _.pick(tweet, commonTweetFields);
   }
 
   return Boom.notFound('No tweet found');
