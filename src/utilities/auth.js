@@ -8,7 +8,7 @@ const verifyToken = (artifact, secret, options = {}) => {
       isValid: true,
       username: artifact.decoded.payload.username,
     };
-  } catch (err) {
+  } catch (error) {
     return Boom.unauthorized(error.message);
   }
 };
