@@ -4,9 +4,12 @@ import Jwt from '@hapi/jwt';
 const verifyToken = (artifact, secret, options = {}) => {
   try {
     Jwt.token.verify(artifact, secret, options);
+    const { username, displayName } = artifact.decoded.payload;
+
     return {
       isValid: true,
-      username: artifact.decoded.payload.username,
+      username,
+      displayName,
     };
   } catch (error) {
     return Boom.unauthorized(error.message);
@@ -44,7 +47,7 @@ export const generateToken = (user) => {
     aud: 'urn:audience:test',
     iss: 'urn:issuer:test',
     username: user.username,
-    userId: user.id,
+    displayName: user.displayName,
   };
 
   const token = Jwt.token.generate(

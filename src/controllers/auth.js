@@ -52,8 +52,8 @@ export const signup = async (request, h) => {
 };
 
 export const isLoggedIn = async (request, h) => {
-  const {username} = request.pre.credentials;
-  const response = {username};
+  const {username, displayName} = request.pre.credentials;
+  const response = {username, displayName};
 
   return h.response(response).code(200);
 };
