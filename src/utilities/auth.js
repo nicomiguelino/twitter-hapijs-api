@@ -4,7 +4,7 @@ import Jwt from '@hapi/jwt';
 const verifyToken = (artifact, secret, options = {}) => {
   try {
     Jwt.token.verify(artifact, secret, options);
-    const { username, displayName } = artifact.decoded.payload;
+    const {username, displayName} = artifact.decoded.payload;
 
     return {
       isValid: true,
